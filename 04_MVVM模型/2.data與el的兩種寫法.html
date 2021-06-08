@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>data與el的2種寫法</title>
+    <script type="text/javascript" src="../js//vue.js"></script>
+</head>
+<body>
+    <!-- 
+
+        data與el的兩種寫法:
+        
+        1. el有兩種寫法:
+            (1).new Vue時候直接傳遞el屬性---常用
+            (2).先new Vue,再通過vm.$mount('#root')指定容器---不常用
+        2. data有兩種寫法:
+            (1).對象式: 非組件化編碼時可以寫對象，也可以寫函數。
+            (2).函數式: 組件化編碼必須使用函數式的data。
+
+        Vue中的一個最重要的原則:
+            由Vue所調用的函數，都不要寫成箭頭函數，一但寫成箭頭函數，this就不對了(或許是undefined,或許是window)
+    -->
+    <div id=root>
+        <h2>Hello,{{msg}}</h2>
+        <h2>地址是:{{address}}</h2>
+    </div>
+    <script type="text/javascript">
+        //el的第一種寫法(常用)
+        // const vm = new Vue({
+        //     el:'#root',
+        //     data:{
+        //         msg:'上矽谷',
+        //         address:'羅斯福路'
+        //     }
+        // })
+        
+        //第二種寫法
+        // const vm =new Vue ({
+        //     data:{
+        //         msg:'上矽谷',
+        //         address:'羅斯福路'
+        //     }
+        // })
+        // vm.$mount('#root')
+
+        // data的第一種寫法，data是一個對象
+        // new Vue({
+        //     el:'#root',
+        //     data:{
+        //         msg:'上矽谷',
+        //         address:'羅斯福路'
+        //     }
+        // })
+
+        // data的第二種寫法，data是一個函數,返回數據對象 (組件中用的多)
+        new Vue({
+            el:'#root',
+            /*
+                特別注意:
+                1. 若使用函數式data，Vue會幫我們調用data函數，Vue就會得到返回的數具對象，從而使用，this是Vue的實例對象
+                2. data不要寫成箭頭函數，要寫成普通函數，否則this的指向就是Window了。
+                
+            */
+            data() {//特別注意:data不要寫成箭頭函數，要寫成普通函數 ，否則this的指向就是windows了，而不是Vue的實例
+                console.log(this)
+                return{
+                    msg:'上矽谷',
+                    address:'台北市羅斯福路'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

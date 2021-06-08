@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="../js//vue.js"></script>
+    <title>模板語法</title>
+</head>
+<body>
+    <!-- 
+        Vue模板語法有兩大類:
+        1. 插值語法:
+            功能:用於解析標籤體內容
+            寫法:{{XXXX}},會作為表達式去解析，且可以自動讀取到data中的屬性
+        2. 指令語法:
+            功能:用於解析標(包括:標籤屬性、標籤內容、綁定事件.....)
+            舉例:v-bind:href="xxxx" 或 簡寫為:
+            備註: Vue中有很多的指令，此處只是拿v-bind舉個例子。
+
+    -->
+    <div id="root">
+        <h2>插值語法</h2>
+        <h4>你好，{{msg}}</h4>
+        <h4>你好，{{msg.toUpperCase()}}</h4>
+        <hr/>
+
+        <h2>指令語法</h2>
+        <a v-bind:href="url">點我去學習</a>
+        <a :href="url">點我去學習</a>
+        <a :href="url">點我去學習</a>
+        <a href="https://vuejs.org/" :x="msg">點我去學習</a>
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el:'#root',
+            data:{
+                msg:'Vue234',
+                url:'https://vuejs.org/',
+            }
+        })
+    
+    </script>
+</body>
+</html>

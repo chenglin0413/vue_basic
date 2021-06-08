@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+    
+        let person={}
+
+        //如下這麼寫會形成地規(無限循環)
+        //set 與 get 中的this都是當前對象
+        // Object.defineProperty(person,'name',{
+        //     set(value){//當修改person.name時，set 被調用 ,set 會收到:新的值
+        //         console.log('set被調用',value)
+
+        //         this.name = value
+
+        //     },
+        //     get(){//當讀取person.name時，get 被調用,get的返回值就是name的值
+        //         console.log('get被調用了')
+        //         return 100
+        //     }
+        // })
+       
+
+        //模擬屬據代理
+        let _data = {msg:'上矽谷'}
+        let vm = {} 
+        
+        Object.defineProperty(vm,'msg',{
+            set(value){
+                _data.msg=value
+            },
+            get(){
+                return _data.msg
+            }
+        })
+
+        console.log(vm)
+    </script>
+</body>
+</html>
