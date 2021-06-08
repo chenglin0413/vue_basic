@@ -23,9 +23,7 @@
         <h2>學校名字:{{name}}</h2>
         <h2>學校地址:{{address}}</h2>
         <h2>學科:{{subject}}</h2>
-        
     </div>
-    <button id='btn'></button>
     <script type="text/javascript">
         const vm = new Vue({
             el:'#root',
@@ -33,12 +31,10 @@
                 name:'台科大',
                 address:'台北市羅斯福路',
                 subject:'投資學',
-          
 
             }
         })
-        console.log(vm.address) //通過vm可以讀取到_data中的address        
-        // vm.address = '北七家振'　//通過vm可以設定新值到_data中的address   
+        console.log(vm)        
         
     </script>
 </body>

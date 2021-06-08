@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>事件代理</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+      
+    -->
+    <!-- 準備好一個容器-->
+    <div id=root>
+       <h2>歡迎來到{{school}}學習</h2>
+        <!-- 綁定事件 ---標準方式-->
+       <button v-on:click="show1">點我提示訊息1(v-on綁定)</button><br><br>
+
+        <!-- 綁定事件 ---簡寫方式-->
+       <button @click="show1">點我提示訊息1(@綁定)</button><br><br>
+
+        <!-- 綁定事件 ---傳遞參數-->
+       <button @click="show2($event,666)">點我打印訊息2 + 傳遞的參數</button><br><br> 
+
+       <!-- 綁定事件 ---阻止默認行為,  prevent 叫事件修飾符-->
+        <a href="https://www.google.com" @click.prevent="show3">點我提示:訊息3(阻止默認行為)</a><br><br> 
+
+        <!-- 綁定事件 ---阻止冒泡, 事件修飾符可以連寫,且順序可以隨意改變 -->
+        <div @click="show4">
+            <a href="https://www.google.com.tw" @click.stop.prevent="show4">點我提示:訊息4</a href="https://www.google.com.tw"><br><br>
+        </div>
+
+        <!-- 鍵盤事件 -->
+
+        <!-- <input @keyup.enter="show5" type="text"  placeholder="按下Enter提示數據"> -->
+        <input @keyup.13="show5" type="text"  placeholder="按下Enter提示數據">
+        
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el:'#root',
+            data:{
+                school:'台科大',
+            },
+            methods:{//用於配置方法
+                show1(event){//此處的show1一定不要寫成箭頭函數，否則this就是Windows了
+                    console.log('我是訊息1',event.target.innerText)
+                    // console.log(this)//this是vm
+                },
+                show2(event,number){
+                    console.log(event)
+                    alert('訊息2----'+number)
+                },
+                show3(evenet){
+                    // evenet.preventDefault();//靠程序員手動阻止默認行為
+                    alert('訊息3')
+                },
+                show4(event){
+                    // event.stopPropagation();//靠程序員手動阻止冒泡
+                    alert('訊息4')
+                },
+                show5(event){
+                    // if(event.keyCode !==13)return //靠程序員自己判斷按鍵
+                    // console.log(event.keyCode)//輸出按鍵編碼值
+                    // console.log(event.key)//輸出按鍵編名稱
+                    alert(event.target.value)
+                }
+            }
+        })
+             
+        
+    </script>
+</body>
+</html>
