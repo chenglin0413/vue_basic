@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>列表過濾</title>
+    <script type="text/javascript" src="../js//vue.js"></script>
+    <style></style>
+</head>
+<body>
+    <!-- 
+      想要對數據加工後再展示，且不想破壞原數據。最好用計算屬性。
+
+    -->
+    <!-- 準備好一個容器-->
+    <div id=root>
+      <h2>人員列表</h2>
+      <input v-model="keyWord" type="text" placeholder="請輸入姓名">
+      <ul>
+        <li v-for="(p,index) in fmtPersons" :key="p.id">
+          {{p.name}}--{{p.sex}}--{{p.age}}歲
+        </li>
+      </ul>
+
+      
+    </div>
+    <script type="text/javascript">
+             new Vue({
+                 el:'#root',
+                 data:{
+                    persons:[
+                      {id:'001',name:'馬冬梅',age:35,sex:'女'},
+                      {id:'002',name:'周冬雨',age:20,sex:'女'},
+                      {id:'003',name:'周杰倫',age:41,sex:'男'},
+                      {id:'004',name:'溫兆倫',age:25,sex:'男'},
+                    ],
+                    keyWord:"",
+                 },
+                 methods:{
+                   demo(){
+                     console.log(1)
+                   }
+                 },
+                 //使用computed過濾，優勢是:不影響原數據
+                 computed:{
+                    fmtPersons(){
+                      const {persons,keyWord} = this
+                      return persons.filter(p => p.name.indexOf(keyWord) !==-1)
+                    }
+                 },
+                 //在watch中修改原數據，會導致原數據的丟失
+                 /*watch:{
+                   keyWord(value){
+                     console.log(value)
+                    //  this.persons.filter((p,index)=>{
+                    //   return p.name.indexOf(value)!== -1
+                    //  })
+                     const arr = this.persons.filter(p => p.name.indexOf(value) !==-1)
+                     console.log(arr)
+                     this.persons = arr
+                   }
+                 }*/
+                 
+             })
+        
+    </script>
+</body>
+</html>

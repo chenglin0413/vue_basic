@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>條件渲染</title>
+    <script type="text/javascript" src="../js//vue.js"></script>
+    <style></style>
+</head>
+<body>
+    <!-- 
+      條件渲染:
+        v-if:
+            適用於:切換頻率很低的場景
+            特點:不展示的DOM節點直接被刪除
+
+        v-show:
+            適用於:切換頻率很高的場景
+            特點:不展示的DOM節點沒有被刪除，僅僅是使用樣式隱藏掉
+        
+        嚴重注意: 使用v-if時，DOM節點可能無法獲取；而使用v-show一定可以取到DOM節點。
+       
+    -->
+    <!-- 準備好一個容器-->
+    <div id=root>
+      <h2>今天天氣很{{isHot?'炎熱':'涼爽'}}</h2>
+      <!-- <h2>今天天氣很{{info}}</h2> -->
+      <button @click="isHot =!isHot">點我改變天氣</button>
+
+      <!-- 使用v-show做條件渲染-->
+      <!-- 只有天氣炎熱，才會展示下面的div -->
+      <!-- <div v-show="isHot">
+        <span>建議:心境自然就會涼</span><br>
+      </div> 
+     -->
+      <!-- 只有天氣涼爽，才會展示下面的div-->
+      <!-- <div v-show="!isHot">
+        <span>建議:得穿秋服了</span><br>
+      </div>  -->
+      <!--  ----------------------------------------------------  -->
+      <!-- 使用v-if,v-else做條件渲染-->
+      <div v-if="isHot">
+        <span>建議:心境自然就會涼</span><br>
+      </div> 
+
+      <div v-else>
+        <span>建議:得穿秋服了</span><br>
+      </div> 
+
+    </div>
+    <script type="text/javascript">
+             new Vue({
+                 el:'#root',
+                 data:{
+                     isHot:false,
+                 },
+                 methods:{
+                    //  changeWeather(){
+                    //      this.isHot=!this.isHot
+                    //  }
+                 },
+                //  computed:{
+                //      info(){
+                //          return this.isHot ? '炎熱':'涼爽'
+                //      }
+                //  }
+             })
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>姓名案例_插值語法實現</title>
+    <script type="text/javascript" src="../js//vue.js"></script>
+</head>
+<body>
+    <!-- 
+        
+    -->
+    <!-- 準備好一個容器-->
+    <div id=root>
+        姓:<input type="text" v-model="firstName"><br><br>
+        名:<input type="text" v-model="lastName"><br><br>
+        <span>全名:{{getFullName()}}</span>
+        <span>全名:{{getFullName()}}</span>
+    </div>
+    <script type="text/javascript">
+        new Vue({
+            el:'#root',
+            data:{
+                firstName:'張',
+                lastName:'三',
+
+            },
+            methods:{
+                getFullName(){
+                    console.log('fullname')
+                    return this.firstName +'-'+ this.lastName
+                }
+            }
+        })
+               
+        
+    </script>
+</body>
+</html>

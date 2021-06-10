@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>列表更新</title>
+    <script type="text/javascript" src="../js//vue.js"></script>
+    <style></style>
+</head>
+<body>
+    <!-- 
+        Vue 數據綁定的原理
+          1. vue 會監視data中所有層次的屬性
+          2. 對象中的屬性數據通過添加set方法來時現監視
+          3. 數組中也實現了監視: 重寫數組一系列更新元素的方法，做了兩件事:
+            (1).調用原生對應的方法對元素進行處理
+            (2).去更新界面
+
+    -->
+    <!-- 準備好一個容器-->
+    <div id=root>
+      <h2>人員列表</h2>
+      
+      <input v-model="keyWord" type="text" placeholder="請輸入姓名">
+      <button @click="sortType = 1 ">年齡升序↑</button>
+      <button @click="sortType = 2 ">年齡降序↓</button>
+      <button @click="sortType = 0 ">原順序</button>
+      <button @click="updateMei">更改馬冬梅訊息</button>
+      <ul>
+        <li v-for="(p,index) in fmtPersons" :key="p.id">
+          {{p.name}}--{{p.sex}}--{{p.age}}歲
+        </li>
+      </ul>
+
+      
+    </div>
+    <script type="text/javascript">
+             new Vue({
+                 el:'#root',
+                 data:{
+                    persons:[
+                      {id:'001',name:'馬冬梅',age:35,sex:'女'},
+                      {id:'002',name:'周冬雨',age:20,sex:'女'},
+                      {id:'003',name:'周杰倫',age:41,sex:'男'},
+                      {id:'004',name:'溫兆倫',age:25,sex:'男'},
+                    ],
+                    keyWord:"",
+                    sortType:0,//1 升序 , 2 降序 , 0 原順序
+                 },
+                 methods:{
+                   updateMei(){
+                      console.log(this)
+                    //  this.persons[0].name ='筱珮琪'
+                    //  this.persons[0].age ='99'
+                    //  this.persons[0].sex ='男'
+                     this.persons[0]={name:'筱珮琪',age:'99',sex:'男'}//不奏效
+                    
+                     
+                   }
+                 },
+                 //使用computed過濾，優勢是:不影響原數據
+                 computed:{
+                    fmtPersons(){
+                      const {persons,keyWord,sortType} = this
+                      //根據關鍵詞過濾
+                      let arr =  persons.filter(p => p.name.indexOf(keyWord) !==-1)
+                      if(sortType){//0的話不會進排序
+                        //排序
+                        arr.sort((a,b)=>{
+                          if(sortType===1)return a.age - b.age
+                          else return b.age - a.age
+                        })
+                      }
+                      return arr
+                    }
+                 },
+                 //在watch中修改原數據，會導致原數據的丟失
+                 /*watch:{
+                   keyWord(value){
+                     console.log(value)
+                    //  this.persons.filter((p,index)=>{
+                    //   return p.name.indexOf(value)!== -1
+                    //  })
+                     const arr = this.persons.filter(p => p.name.indexOf(value) !==-1)
+                     console.log(arr)
+                     this.persons = arr
+                   }
+                 }*/
+                 
+                 
+             })
+        
+    </script>
+</body>
+</html>

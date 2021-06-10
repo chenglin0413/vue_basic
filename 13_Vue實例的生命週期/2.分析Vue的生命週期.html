@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="../js/vue.js"></script>
+  <title>分析生命週期</title>
+</head>
+<body>
+    <div id="root">
+      <h2>當前頁面求和為:{{sum}}</h2>
+      <button @click="sum += 1">點我加1</button>
+
+    </div>
+
+    <script type="text/javascript">
+      new Vue({
+        el:'#root',
+        data:{
+          sum:0,
+        },
+      })
+    </script>
+</body>
+</html>

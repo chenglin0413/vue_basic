@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>蒐集表單數據</title>
+    <script type="text/javascript" src="../js//vue.js"></script>
+    <style></style>
+</head>
+<body>
+    <!-- 
+      若是 :<input type="text"/> 則v-model蒐集的是 value
+      若是 :<input type="radio"/> 則v-model蒐集的是 value
+      若是 :<input type="checkbox"/> 
+          1. 而且沒有配置Input的value屬性，那麼蒐集的就是checked (勾選 or 未 勾選，是boolean值)
+          2. 配置input value的屬性 :
+            (1). v-model的初始值是非數組，那麼蒐集的就是checked (勾選 or 未 勾選，是boolean值)
+            (2). v-model的初始值是數組，那麼蒐集的就是value組成的數組
+
+    -->
+    <!-- 準備好一個容器-->
+    <div id=root>
+      <form @submit.prevent="submit">
+        帳號:<input type="text"  v-model="userInfo.account">
+        <br><br>
+        密碼: <input type="password" v-model="userInfo.password">
+        <br><br>
+        性別:男 <input type="radio" name="sex" v-model="userInfo.sex" value="male">
+             女 <input type="radio" name="sex" v-model="userInfo.sex" value="female">
+        <br><br>
+        愛好: 抽菸 <input type="checkbox" v-model="userInfo.hobby" value="smoke">
+              喝酒 <input type="checkbox" v-model="userInfo.hobby" value="drink">
+              開車 <input type="checkbox" v-model="userInfo.hobby" value="drive">
+        <br><br>
+        所屬校區: <select v-model="userInfo.city">
+                      <option value="">請選擇校區</option>
+                      <option value="beijing">北京</option>
+                      <option value="shanhai">上海</option>
+                      <option value="shenzhen">深鎮</option>
+                      <option value="wuhan">武漢</option>
+                  </select>
+        <br><br>
+        其他訊息: <textarea v-model="userInfo.other" cols="30" rows="10"></textarea> 
+        <br><br>
+        <input type="checkbox" v-model="userInfo.agree">閱讀並接受《用戶協議》 <a href="https://www.google.com"></a>
+        <br><br>
+        <button @click>提交</button>
+      </form>
+      </form>
+    </div>
+  <script type="text/javascript">
+    new Vue({
+      el:'#root',
+      data:{
+        userInfo:{
+          account:'',
+          password:'',
+          sex:'',
+          hobby:[],
+          city:'',
+          other:'',
+          agree:false,
+        }
+      },
+      methods:{
+        submit(){
+          console.log(this.userInfo)
+        }
+      }
+    })
+  
+  
+  </script>
+</body>
+</html>

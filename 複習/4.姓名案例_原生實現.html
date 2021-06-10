@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+    /*
+        不使用框架進行框架時，甚麼時候用definProperty
+        要追加的屬性，來自於其他值的加工
+
+        */
+        let p = {
+            firstName:'張',
+            lastName:'三',
+            
+        }
+        
+        Object.defineProperty(p,'fullName',{
+            set(value){//fullName被修改時，set被調用，且set方中的this是p,且set會收到修改的值
+                const arr = value.split('-')
+                this.firstName=arr[0]
+                this.lastName=arr[1]
+
+            },
+            get(){//fullName貝迪取時，get被調用，且get方法中的this是p
+                return this.firstName + '-' + this.lastName
+            }
+        })
+
+    </script>
+</body>
+</html>
