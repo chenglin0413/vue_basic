@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="../js/vue.js"></script>
+  <style>
+    .picture{
+      width: 80px;
+    }
+    /* 離開的起點 進入的終點*/
+    .facebook-leave , .facebook-enter-to{
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+    /* 離開的終點 進入的起點*/
+    .facebook-leave-to,.facebook-enter{
+      opacity: 0;
+      transform: scale(0.2) rotate(180deg);
+    }
+    /* 離開中 進入中*/
+    .facebook-leave-active ,.facebook-enter-active{
+      transition: 1s all linear;
+    }
+
+  </style>
+  <title>過渡案例_Vue實現</title>
+</head>
+<body>
+  <!-- 
+    1. 基本編碼(transition )
+      (1). 在目標元素外包裹<transition name="xxx">
+      (2). 編寫樣式:
+        進入:
+          進入起始點(xxx-enter)
+          進入過程中(xxx-enter-active)
+          進入結束點(xxx-enter-to)
+        離開:
+          離開起始點(xxx-leave)
+          離開過程中(xxx-leave-active)
+          離開結束點(xxx-leave-to)
+   -->
+    <div id="root">
+      <button @click="isShow = !isShow">切換</button>
+      <transition name="facebook">
+        <img v-show="isShow" class="picture" src="./fblogo.png" >
+      </transition>
+    </div>
+
+    <script type="text/javascript">
+      new Vue({
+        el:'#root',
+        data:{
+          isShow:true,
+        }
+      })
+    </script>
+</body>
+</html>

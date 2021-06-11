@@ -8,18 +8,88 @@
 </head>
 <body>
     <div id="root">
-      <h2>當前頁面求和為:{{sum}}</h2>
-      <button @click="sum += 1">點我加1</button>
+      <h2 id="h2">當前頁面求和為:{{sum}}</h2>
+      <button @click="add" id="btn">點我加1</button>
+      <button @click="death" >銷毀</button>
 
     </div>
 
     <script type="text/javascript">
-      new Vue({
+      //修改Vue的全局配置
+      Vue.config.productionTip = false //關閉生產提示
+      const vm = new Vue({
         el:'#root',
         data:{
           sum:0,
         },
+        methods: {
+          add(){
+            console.log('點擊+按鈕')
+            this.sum += 1;
+          },
+          death(){
+            this.$destroy()
+          }
+        },
+        //Vue實例初始化前
+        beforeCreate() {
+          console.log('--beforeCreated--')
+          // console.log(this.sum)//undefined
+          // console.log(this.add)//undefined
+        },
+        //Vue實例初始化完畢
+        created() {
+          console.log('--created--')
+          // console.log(this.sum)//undefined
+          // console.log(this.add)//undefined
+          // console.log(this)//undefined
+          // debugger;
+        },
+        //Vue 實例更新真實DOM之前(掛載前)
+        beforeMount() {
+          console.log('--berforeMount--')
+          const btn = document.getElementById('btn');
+          btn.innerHTML='哈哈'
+          // debugger;
+        },
+        //Vue實例更新玩真實DOM了(掛載完畢)
+        mounted() {
+          console.log('--mounted--')
+          // const h2 = document.getElementById('h2')
+          // const btn = document.getElementById('btn')
+          // btn.innerHTML='哈哈'
+          // console.log(h2)
+          // console.log(btn)
+         },
+         //Vue實例將要更新頁面
+         beforeUpdate() {
+           console.log('--beforeUpdate--')
+          //  console.log(this.sum)
+          //  debugger;
+         },
+         //Vue實例完成數據更新
+         updated() {
+            console.log('--updated--')
+            // console.log(this)
+            // console.log(this.sum)
+            // debugger;
+         },
+         //Vue實例銷毀前
+         beforeDestroy() {
+            console.log('--beforeDestroy--')
+            console.log(this)
+            console.log(this.sum)
+            console.log(this.add)
+         },
+         //Vue實例銷毀完畢
+         destroyed() {
+           console.log('--destroyed--')
+           console.log('--我移除完畢了所有數據的監視，不會更新頁面了--')
+           
+
+         },
       })
+      
     </script>
 </body>
 </html>

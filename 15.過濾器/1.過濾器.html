@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script  type="text/javascript" src="../js/moment.min.js"></script>
+  <title>過濾器</title>
+</head>
+<body>
+   <!-- 準備好一個容器 -->
+   <div id="root">
+     <h2>顯示格式化後的</h2>
+     <h3>{{fmtDate}}</h3>
+     <h3>{{fmtDate}}</h3>
+     <!-- <h3>{{time}}</h3> -->
+   </div>
+</body>
+  <script type="text/javascript">
+
+    //全局註冊的過濾器
+    Vue.filter('dataFormater',function(a,b){
+      console.log(a,b)
+      return 100
+
+      // return moment(value).format(str);
+    })
+    new Vue ({
+      el:'#root',
+      data:{
+        time:Date.now(),
+      },
+      methods: {
+        // fmtDate(str='YYYY-MM-DD'){
+        //   return moment(this.time).format(str);
+        // }
+      },
+      computed:{
+        fmtDate(){
+          return moment(this.time).format('YYYY-MM-DD hh:mm:ss a');
+        }
+      }
+    })
+  </script>
+</html>

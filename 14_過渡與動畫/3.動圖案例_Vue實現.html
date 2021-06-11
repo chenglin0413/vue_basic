@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="../js/vue.js"></script>
+  <style>
+    .picture{
+      width: 80px;
+    }
+    /* 創建一個進入的動畫 */
+    .facebook-enter-active{
+      animation:  ntust 1s;
+    }
+    .facebook-leave-active{
+      animation:  ntust 1s reverse; 
+    }
+    @keyframes ntust{
+      0%{
+        transform:  scale(0);
+      }
+      50%{
+        transform: scale(1.3);
+      }
+      100%{
+        transform: scale(1);
+      }
+    }
+  </style>
+  <title>動畫案例_Vue實現</title>
+</head>
+<body>
+  <!-- 
+      1. 基本編碼
+        (1). 在目標元素外包裹<transition name="xxx">
+        (2). 編寫:進入動畫、離開動畫 的樣式
+      2. 類明規範:
+          進入動畫樣式:xxxx-enter-active
+          離開動畫樣式:xxxx-leave-active
+  
+   -->
+    <div id="root">
+      <button @click="isShow = !isShow">切換</button>
+      <br>
+      <transition name="facebook"> 
+        <img v-show="isShow" class="picture" src="./fblogo.png" >
+      </transition>
+    </div>
+
+    <script type="text/javascript">
+      new Vue({
+        el:'#root',
+        data:{
+          isShow:true,
+        }
+      })
+
+    </script>
+</body>
+</html>
