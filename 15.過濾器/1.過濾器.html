@@ -8,20 +8,33 @@
   <title>過濾器</title>
 </head>
 <body>
+  <!-- 
+    1. 理解過濾器
+      功能: 對要顯示的數據進行特定格式化
+      注意: 不改變原數據，而是產生新數據
+    2. 編碼
+     (1). 定義過濾器:
+        Vue.filter(過濾器的名字, function(value,[,arg1,arg2,....]){
+          //進行一定的數據處理
+          return newValue
+        })
+     (2). 使用過濾器
+        <div>{{myData | filterName}}</div>
+        <div>{{myData | filterName(arg)}}</div>
+   -->
    <!-- 準備好一個容器 -->
    <div id="root">
      <h2>顯示格式化後的</h2>
-     <h3>{{fmtDate}}</h3>
-     <h3>{{fmtDate}}</h3>
-     <!-- <h3>{{time}}</h3> -->
+     <h3>{{time |dataFormater}}</h3>
+     <h3>{{time |dataFormater('YYYY-MM-DD hh:mm:ss')}}</h3>
+
    </div>
 </body>
   <script type="text/javascript">
 
-    //全局註冊的過濾器
-    Vue.filter('dataFormater',function(a,b){
-      console.log(a,b)
-      return 100
+    //註冊的過濾器
+    Vue.filter('dataFormater',function(value,str='YYYY-MM-DD'){
+        return moment(value).format(str);
 
       // return moment(value).format(str);
     })
@@ -36,9 +49,9 @@
         // }
       },
       computed:{
-        fmtDate(){
-          return moment(this.time).format('YYYY-MM-DD hh:mm:ss a');
-        }
+        // fmtDate(){
+        //   return moment(this.time).format('YYYY-MM-DD hh:mm:ss a');
+        // }
       }
     })
   </script>

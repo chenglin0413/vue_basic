@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- 
+        需求 : 自定義2個指令
+            1. 功能類似於v-text, 但轉換為全大寫 v-upper-text
+            1. 功能類似於v-text, 但轉換為全小寫 v-lower-text
+            
+
+     -->
+     <div id="root">
+
+        <h2 v-upper-text="name"></h2>
+        <h2 v-lower-text="name"></h2>
+     </div>
+     
+
+     <script type="text/javascript">
+        //修改Vue的全局配置
+        Vue.config.productionTip = false //關閉生產提示
+        //定義一個指令  --- 全局指令
+        Vue.directive('upper-text',function(el,binding){
+            el.innerText = binding.value.toUpperCase()
+        })
+        new Vue({
+            el:'#root',
+            data:{
+                name:'atGuiGu',
+            },
+            directives:{
+                'lower-text':function(el,binding){
+                    el.innerText = binding.value.toLowerCase()
+                }
+            }
+        })
+
+    
+    </script>
+    
+</body>
+</html>
