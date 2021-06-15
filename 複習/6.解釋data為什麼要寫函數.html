@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //如下寫法，一個改變，所有的data屬性都會變
+        const obj1 = {
+            // data(){
+            //     return {name:'tom'}
+            // }
+            data:{
+                name:'tom'
+            }
+        }
+        const x1 = obj1.data
+        x1.name = 'jack'
+        console.log(x1.name)
+        
+        const y1 = obj1.data
+        console.log(y1.name)
+
+
+        //如下寫法，互不影響
+        const obj2 = {
+            data(){
+                return {name:'tom'}
+            }
+        }
+        const x2 = obj2.data()
+        x2.name = 'jack'
+        console.log(x2.name)
+        
+        const y2 = obj2.data()
+        console.log(y2.name)
+    </script>
+</body>
+</html>

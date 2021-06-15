@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <title>組件_非單文件</title>
+</head>
+<body>
+
+    <!-- 
+        單文件組件 : 一個文件就是一個組件，而且文件後綴是.vue
+
+        非單文件組件 : 所有組件，都定義在一個文件中，文件的後綴不是.vue 
+
+        **開發中一定一定使用的是單文件組件
+
+        組件使用的基本流程 : 
+            1. 定義組件
+            2. 註冊組件 :
+                (局部註冊) - > Vue.component('組件名',組件)
+                (全局註冊) - > 配置components屬性，components:{組件名，組件}
+            3. 寫組件標籤
+     -->
+     <div id="root">
+        <School></School>
+        <Hello></Hello>
+     </div>
+
+     
+     <script type="text/javascript">
+        //修改Vue的全局配置
+        Vue.config.productionTip = false //關閉生產提示
+        /*
+            定義一個School組件:
+                1. 如何定義一個組件 ? -- 使用Vue.extend(options) 去創建
+                2. School的本質是一個構造函數，我們以後去寫<School/>, Vue 幫我們去new 
+                3. Vue.extend(options)中的options是配置對象，這個配置對象幾乎和new Vue時的那個options一樣，區別如下
+                    (1).不能寫el去指定容器
+                        原因:  所有組件實例最終要被一個vm所管理，vm中會指定好el，即: 組件讓如哪個容器。
+                    (2). data必須寫成函數
+                        原因 : 為了確保多個組件中的數據互不干擾
+                    (3). 組件的模板結構，要配置在template屬性中：
+                        (3.1)值為html字串，而且要用模板字符串。
+                        (3.2)模板結構，必需只有一個根標籤。
+                4. 所有的組件定義後，必須註冊才能使用，註冊分為: 全局註冊、局部註冊
+                5. 特別注意: 
+                    (1). School確實是構造函數，但不是我們親手寫的School, 是Vue.extend生成的。
+                    (2). Vue.extend調用的返回值是VueComponent構造函數，所以New School，其實就是在new VueComponent。
+                    (3). 所謂組件實例，都是VueComponent的創建實例，簡稱vc
+                        所有Vue實例，就是Vue的實例，簡稱vm
+                6. 一個最最最重要的關係 :    
+                    VueComponent繼承了Vue，所以Vue.prototype上的屬性和方法，vc都能看得見
+        */
+        
+        const School = Vue.extend({
+            // data中存放組件所需數據
+            data(){
+                return {
+                    name:'上矽谷',
+                    address:'基隆路',
+                }
+            },
+            //template中配置組件的模板結構
+            template:` 
+            <div>
+                <h2>學校的名字是: {{name}}</h2>
+                <h2>學校的地址是: {{address}}</h2>′
+            </div>
+            `
+        })
+        Vue.prototype.xyz = 1
+        //定義Hello組件
+        const Hello = Vue.extend({
+             template:`<h2>Hello</h2>`
+         })
+        //註冊Scholl組件---【全局註冊】
+        // Vue.component('School',School)
+        //定義一個vm，去管理所有的組件
+        const vm = new Vue({
+            el:'#root',
+            //註冊School組件----【局部註冊】
+            components:{
+                School,
+                Hello,
+            }
+        })
+        
+
+    </script>
+    
+</body>
+</html>
