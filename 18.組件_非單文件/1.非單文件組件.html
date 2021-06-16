@@ -23,14 +23,15 @@
             3. 寫組件標籤
      -->
      <div id="root">
-        <School></School>
-        <Hello></Hello>
+        <App></App>
      </div>
 
      
      <script type="text/javascript">
         //修改Vue的全局配置
         Vue.config.productionTip = false //關閉生產提示
+        //向Vue的原型對象上追加一個xyz屬性，值為1
+        Vue.prototype.xyz = 1
         /*
             定義一個School組件:
                 1. 如何定義一個組件 ? -- 使用Vue.extend(options) 去創建
@@ -49,6 +50,7 @@
                     (2). Vue.extend調用的返回值是VueComponent構造函數，所以New School，其實就是在new VueComponent。
                     (3). 所謂組件實例，都是VueComponent的創建實例，簡稱vc
                         所有Vue實例，就是Vue的實例，簡稱vm
+                    (4). 組件的data函數、以及methods中配置的函數中，this都是vc。
                 6. 一個最最最重要的關係 :    
                     VueComponent繼承了Vue，所以Vue.prototype上的屬性和方法，vc都能看得見
         */
@@ -56,34 +58,48 @@
         const School = Vue.extend({
             // data中存放組件所需數據
             data(){
+                console.log('@',this)
                 return {
                     name:'上矽谷',
                     address:'基隆路',
+                }
+            },
+            methods: {
+                showAddress(){
+                    console.log(this.address)
                 }
             },
             //template中配置組件的模板結構
             template:` 
             <div>
                 <h2>學校的名字是: {{name}}</h2>
-                <h2>學校的地址是: {{address}}</h2>′
+                <h2 @click="showAddress">學校的地址是: {{address}}</h2>′
             </div>
             `
         })
-        Vue.prototype.xyz = 1
+        
         //定義Hello組件
         const Hello = Vue.extend({
              template:`<h2>Hello</h2>`
          })
+        
+        const App = Vue.extend({
+            components:{School,Hello},
+            template:`
+                <div>
+                    <Hello/>
+                    <School/>
+                </div>
+            `
+        })
+
         //註冊Scholl組件---【全局註冊】
         // Vue.component('School',School)
         //定義一個vm，去管理所有的組件
         const vm = new Vue({
             el:'#root',
             //註冊School組件----【局部註冊】
-            components:{
-                School,
-                Hello,
-            }
+            components:{App}
         })
         
 
