@@ -25,6 +25,7 @@
      <script type="text/javascript">
         //修改Vue的全局配置
         Vue.config.productionTip = false //關閉生產提示
+        
         //定義一個指令  --- 全局指令
         Vue.directive('upper-text',function(el,binding){
             el.innerText = binding.value.toUpperCase()
